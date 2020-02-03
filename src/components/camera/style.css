@@ -1,0 +1,27 @@
+.container {
+	position: relative;
+}
+.wrapper {
+	position: relative;
+}
+video {
+	object-fit: cover;
+	width: 100%;
+}
+
+canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+button {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 4rem;
+	width: 4rem;
+	background-color:blue;
+	border-radius: 50%;
+}

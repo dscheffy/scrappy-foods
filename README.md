@@ -1,4 +1,4 @@
-# feedme-digest
+# scrappy-foods
 
 ## CLI Commands
 *   `npm install`: Installs dependencies
