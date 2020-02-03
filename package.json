@@ -32,6 +32,7 @@
   ],
   "devDependencies": {
     "@types/jest": "^23.3.10",
+    "@types/react": "^16.9.19",
     "@types/webpack-env": "^1.13.9",
     "css-loader": "^1.0.1",
     "husky": "^1.2.0",
