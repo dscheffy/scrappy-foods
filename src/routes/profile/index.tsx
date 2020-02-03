@@ -1,44 +1,41 @@
-import { h } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { Component, h } from "preact";
+import { auth } from "../../components/firebase"
+import SignIn from "../../components/SignIn"
+import SignOut from "../../components/SignOut"
+import User from "../../components/user"
 import * as style from "./style.css";
 
 interface Props {
-    user: string;
 }
 
-const Profile: preact.FunctionalComponent<Props> = props => {
-    const { user } = props;
-    const [time, setTime] = useState<number>(Date.now());
-    const [count, setCount] = useState<number>(0);
-
-    // gets called when this route is navigated to
-    useEffect(() => {
-       const timer = window.setInterval(() => setTime(Date.now()), 1000);
-
-        // gets called just before navigating away from the route
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
-
-    // update the current time
-    const increment = () => {
-        setCount(count + 1);
+interface State {
+    user: any;
+}
+export default class Profile extends Component<Props, State> {
+    public state = {
+        user: null
     };
 
-    return (
-        <div class={style.profile}>
-            <h1>Profile: {user}</h1>
-            <p>This is the user profile for a user named {user}.</p>
 
-            <div>Current time: {new Date(time).toLocaleString()}</div>
+    public unsubscribeAuth = () => { };
 
-            <p>
-                <button onClick={increment}>Click Me</button> Clicked {count}{" "}
-                times.
-            </p>
-        </div>
-    );
-};
+    // gets called when this route is navigated to
+    public componentDidMount() {
+        this.unsubscribeAuth = auth.onAuthStateChanged(user => {this.setState({user})});
+    }
 
-export default Profile;
+    // gets called just before navigating away from the route
+    public componentWillUnmount() {
+        this.unsubscribeAuth();
+    }
+
+    public render({ }: Props, { user }: State) {
+        return (
+            <div class={style.profile}>
+            {!user && <SignIn/>}
+            {user &&  <User user={user}/>}
+            {user &&  <SignOut/>}
+            </div>
+        );
+    }
+}

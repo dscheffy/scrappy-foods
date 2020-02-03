@@ -11,10 +11,7 @@ const Header: preact.FunctionalComponent = () => {
                     Home
                 </Link>
                 <Link activeClassName={style.active} href="/profile">
-                    Me
-                </Link>
-                <Link activeClassName={style.active} href="/profile/john">
-                    John
+                    Profile
                 </Link>
             </nav>
         </header>
