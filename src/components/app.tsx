@@ -1,6 +1,7 @@
 import { h } from "preact";
 import { Route, Router, RouterOnChangeArgs } from "preact-router";
 
+import { ProvideAuth } from "../hooks/useAuth"
 import Home from "../routes/home";
 import Profile from "../routes/profile";
 import Header from "./header";
@@ -17,6 +18,7 @@ const App: preact.FunctionalComponent = () => {
     };
 
     return (
+        <ProvideAuth>
         <div id="app">
             <Header />
             <Router onChange={handleRoute}>
@@ -24,6 +26,7 @@ const App: preact.FunctionalComponent = () => {
                 <Route path="/profile/" component={Profile} />
             </Router>
         </div>
+        </ProvideAuth>
     );
 };
 
