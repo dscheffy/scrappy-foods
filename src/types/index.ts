@@ -1,4 +1,5 @@
 export interface Upload {
+  thumbnail: string;
   id: string;
 }
 export interface AuthInfo {
@@ -8,5 +9,11 @@ export interface AuthInfo {
 }
 export interface User {
   auth: AuthInfo;
-  uploads: Upload[];
+  history: Activity[];
+}
+export interface Activity {
+  type: string;
+  notes: string;
+  timestamp: number;
+  image?: Upload;
 }

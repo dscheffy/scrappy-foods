@@ -51,7 +51,7 @@ const Camera: preact.FunctionalComponent<Props> = ({onCapture}: Props) => {
         <video ref={videoRef} onCanPlay={handleCanPlay} autoPlay={true} playsInline={true} muted={true} />
         <canvas ref={canvasRef} />
       </div>
-        <button onClick={handleCapture}>
+        <button class={style.snap} onClick={handleCapture}>
         Take a picture
       </button>
       </div>

@@ -11,10 +11,9 @@ interface Props {
 
 const Profile: FunctionalComponent<Props> = props => {
     // TODO: ugh, refactor these names, so convoluted...
-    const user = useAuth()
+    const {user,userRef} = useAuth()
     const auth = user.auth;
     const anon = user === ANONYMOUS;
-    console.log(user)
     return (
         <div class={style.profile}>
         {user &&  <User {...auth}/>}

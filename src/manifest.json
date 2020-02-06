@@ -1,6 +1,6 @@
 {
-  "name": "feedme-digest",
-  "short_name": "feedme-digest",
+  "name": "Scrappy Foods",
+  "short_name": "scrappy-foods",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
