@@ -5,19 +5,16 @@ import { SignIn, SignOut, useAuth } from "../../hooks/useAuth";
 import * as style from "./style.css";
 
 const Header: preact.FunctionalComponent = () => {
-    const {user} = useAuth();
-    const anon = user === ANONYMOUS;
+    const {auth} = useAuth();
+    const anon = auth === ANONYMOUS;
     return (
         <header class={style.header}>
             <h1>Scrappy Foods!</h1>
             <nav>
-                <Link activeClassName={style.active} href="/">
-                    Home
-                </Link>
-                <Link activeClassName={style.active} href="/history">
+                { !anon && <Link activeClassName={style.active} href="/history">
                     History
-                </Link>
-                <Link activeClassName={style.active} href="/profile">
+                </Link> }
+                <Link activeClassName={style.active} href="/">
                     Profile
                 </Link>
                 { anon ? <SignIn/> : <SignOut/> }

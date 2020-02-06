@@ -3,12 +3,13 @@ import { Link } from "preact-router";
 import { useContext, useEffect, useState } from "preact/hooks";
 import { PropsWithChildren } from "react";
 import { auth as firebaseAuth, googleAuthProvider } from "../components/firebase";
-import { ANONYMOUS } from "../constants";
+import { ANONYMOUS, EMPTY_USER_DETAIL } from "../constants";
 import { userDetail as userDetailRef } from "../state";
-import { User } from "../types";
+import { AuthInfo, UserDetail } from "../types";
 
 export interface ContextType {
-  user: User;
+  auth: AuthInfo;
+  user: UserDetail;
   userRef: firebase.firestore.DocumentReference|null;
 }
 
@@ -21,7 +22,7 @@ export const SignOut: FunctionalComponent = () => <Link onClick={() => firebaseA
   Logoff
 </Link>
 
-const authContext = createContext<ContextType>({user: ANONYMOUS, userRef: null});
+const authContext = createContext<ContextType>({auth: ANONYMOUS, user: EMPTY_USER_DETAIL, userRef: null});
 export const useAuth = () => {
   return useContext(authContext);
 };
@@ -39,7 +40,8 @@ export function ProvideAuth({ children }: PropsWithChildren<{}>) {
 
 // Provider hook that creates auth object and handles state
 function useProvideAuth(): ContextType {
-  const [user, setUser] = useState(ANONYMOUS);
+  const [auth, setAuth] = useState(ANONYMOUS);
+  const [user, setUser] = useState(EMPTY_USER_DETAIL);
   const [userRef, setUserRef] = useState<firebase.firestore.DocumentReference|null>(null);
 
   // Subscribe to user on mount
@@ -50,24 +52,21 @@ function useProvideAuth(): ContextType {
     let unsubscribeUserDetail = () => {};
     const unsubscribeAuth = firebaseAuth.onAuthStateChanged(u => {
       if(!u) { 
-        setUser(ANONYMOUS); 
+        setAuth(ANONYMOUS); 
         return;
       }
       setUserRef(userDetailRef(u.uid));
-      setUser({
-        auth:{
+      setAuth({
           displayName: u.displayName,
           photoURL: u.photoURL,
           uid: u.uid 
-        },
-        history: [] // TODO: fix me with firestore data
       });
       unsubscribeUserDetail = userDetailRef(u.uid).onSnapshot(doc => {
         if(!doc.data()) {
           userDetailRef(u.uid).set({history: []});
         }
-        const userDetail = doc.data() as User;
-        setUser({...userDetail, auth: user.auth })
+        const userDetail = doc.data() as UserDetail;
+        setUser({...userDetail})
       });      
     });
 
@@ -80,5 +79,5 @@ function useProvideAuth(): ContextType {
   }, []);
 
   // Return the user object and auth methods
-  return {user,userRef};
+  return {auth, user, userRef};
 }

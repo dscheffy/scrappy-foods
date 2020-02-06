@@ -23,8 +23,7 @@ const App: preact.FunctionalComponent = () => {
         <div id="app">
             <Header />
             <Router onChange={handleRoute}>
-                <Route path="/" component={Home} />
-                <Route path="/profile/" component={Profile} />
+                <Route path="/" component={Profile} />
                 <Route path="/history/" component={History} />
             </Router>
         </div>

@@ -7,8 +7,7 @@ export interface AuthInfo {
   photoURL: string | null;
   uid: string;
 }
-export interface User {
-  auth: AuthInfo;
+export interface UserDetail {
   history: Activity[];
 }
 export interface Activity {
