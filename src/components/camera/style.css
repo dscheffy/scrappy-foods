@@ -9,11 +9,14 @@ video {
 	width: 100%;
 }
 
-canvas {
+.preview {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
+}
+.thumb {
+	display: none;
 }
 
 .snap {

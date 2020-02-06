@@ -2,8 +2,8 @@ import { h } from "preact";
 import { Route, Router, RouterOnChangeArgs } from "preact-router";
 
 import { ProvideAuth } from "../hooks/useAuth"
+import CameraRoute from "../routes/camera";
 import History from "../routes/history";
-import Home from "../routes/home";
 import Profile from "../routes/profile";
 import Header from "./header";
 
@@ -23,8 +23,9 @@ const App: preact.FunctionalComponent = () => {
         <div id="app">
             <Header />
             <Router onChange={handleRoute}>
-                <Route path="/" component={Profile} />
+                <Route path="/camera/" component={CameraRoute} />
                 <Route path="/history/" component={History} />
+                <Route path="/" component={Profile} />
             </Router>
         </div>
         </ProvideAuth>

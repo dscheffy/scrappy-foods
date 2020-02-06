@@ -9,12 +9,13 @@ const CAPTURE_OPTIONS = {
 };
 
 interface Props {
-  onCapture: BlobCallback
+  onCapture: (blob: Blob, thumb: string) => void
 }
 const Camera: preact.FunctionalComponent<Props> = ({onCapture}: Props) => {
   
   const videoRef = useRef<HTMLVideoElement>();
   const canvasRef = useRef<HTMLCanvasElement>();
+  const thumbRef = useRef<HTMLCanvasElement>();
   const mediaStream = useMedia(CAPTURE_OPTIONS);
   if(mediaStream && videoRef.current && !videoRef.current.srcObject) {
       videoRef.current.srcObject = mediaStream;
@@ -28,28 +29,38 @@ const Camera: preact.FunctionalComponent<Props> = ({onCapture}: Props) => {
   const handleCapture = () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    if(!canvas || !video) { return }
+    const thumb = thumbRef.current;
+    if(!canvas || !video || !thumb) { return }
 
     // downgrade the image for no particular reason -- just trying stuff here
-    canvas.height=video.videoHeight/4;
-    canvas.width=video.videoWidth/4;
+    canvas.height=video.videoHeight;
+    canvas.width=video.videoWidth;
+    thumb.height=video.videoHeight/16;
+    thumb.width=video.videoWidth/16;
     const context = canvas.getContext("2d");
+    const thumbCtx = thumb.getContext("2d");
 
     if(context) {  
       context.drawImage(
         video,0,0,video.videoWidth, video.videoHeight, 0,0,canvas.width,canvas.height
       );
     }
+    if(thumbCtx) {  
+      thumbCtx.drawImage(
+        video,0,0,video.videoWidth, video.videoHeight, 0,0,thumb.width,thumb.height
+      );
+    }
 
-    canvas.toBlob(blob => onCapture(blob), "image/jpeg", 1);
-    console.log(canvas.toDataURL());
+    const thumbUrl = thumb.toDataURL()
+    canvas.toBlob(blob => blob && onCapture(blob, thumbUrl), "image/jpeg", 1);
   }
   
     return (
       <div class={style.wrapper}>
       <div class={style.container} >
         <video ref={videoRef} onCanPlay={handleCanPlay} autoPlay={true} playsInline={true} muted={true} />
-        <canvas ref={canvasRef} />
+        <canvas class={style.preview} ref={canvasRef} />
+        <canvas class={style.thumb} ref={thumbRef} />
       </div>
         <button class={style.snap} onClick={handleCapture}>
         Take a picture

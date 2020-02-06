@@ -11,6 +11,7 @@ type Editable<T> = Partial<T> & {
 
 const Activity: FunctionalComponent<ActivityType> = props => <li>
     {props.timestamp} {props.type} {props.notes}
+    { props.image && <img src={props.image.thumbnail}/>}
 </li>
 
 const EditActivity: FunctionalComponent<Editable<ActivityType>> = props => {
