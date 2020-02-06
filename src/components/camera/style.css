@@ -15,16 +15,19 @@ video {
 	left: 0;
 	width: 100%;
 }
-.thumb {
+.hide {
 	display: none;
 }
 
 .snap {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 2rem;
 	height: 4rem;
 	width: 4rem;
-	background-color:blue;
+	background-color:lightblue;
 	border-radius: 50%;
+	border-color: blue;
+}
+.controls {
+	display: flex;
+	justify-content: center;
 }

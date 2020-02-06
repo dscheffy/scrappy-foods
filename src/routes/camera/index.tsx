@@ -34,7 +34,7 @@ const CameraRoute: preact.FunctionalComponent<Props> = props => {
             <h1>Home</h1>
             <p>Take a picture, it'll last longer!</p>
             {/* use as a failover for no media devices? <input type="file" accept="image/*;capture=camera"/>*/}
-            <Camera onCapture={handleCapture} />
+            <Camera onSave={handleCapture} />
         </div>
     );
 };

@@ -2,5 +2,6 @@
 export const container: string;
 export const wrapper: string;
 export const preview: string;
-export const thumb: string;
+export const hide: string;
 export const snap: string;
+export const controls: string;

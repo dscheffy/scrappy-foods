@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
-import { FieldValue } from "../../components/firebase";
+import { FieldValue, storage } from "../../components/firebase";
 import { useAuth } from "../../hooks/useAuth";
 import { Activity as ActivityType } from "../../types";
 import * as style from "./style.css";
@@ -9,10 +9,20 @@ type Editable<T> = Partial<T> & {
     onUpdate: (newValue: T) => void;
 }
 
-const Activity: FunctionalComponent<ActivityType> = props => <li>
-    {props.timestamp} {props.type} {props.notes}
-    { props.image && <img src={props.image.thumbnail}/>}
-</li>
+const Activity: FunctionalComponent<ActivityType> = props => {
+    const [ thumb, setThumb ] = useState<any|null>(null);
+    if(props.image && !thumb) {
+        const thumbnail = props.image.thumbnail;
+        // setThumb(<img src={thumbnail}/>)
+        const ref = storage.ref(props.image.id);
+        ref.getDownloadURL().then(url => {
+            setThumb(<a href={url} target="_blank" rel="noopener noreferrer"><img src={thumbnail}/></a>)
+        });
+    }
+    return <li>
+        {props.timestamp} {props.type} {props.notes} {thumb}
+    </li>
+}
 
 const EditActivity: FunctionalComponent<Editable<ActivityType>> = props => {
     const [ type, setType ] = useState(props.type || "");

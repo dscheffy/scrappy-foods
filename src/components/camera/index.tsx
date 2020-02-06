@@ -9,10 +9,10 @@ const CAPTURE_OPTIONS = {
 };
 
 interface Props {
-  onCapture: (blob: Blob, thumb: string) => void
+  onSave: (blob: Blob, thumb: string) => void
 }
-const Camera: preact.FunctionalComponent<Props> = ({onCapture}: Props) => {
-  
+const Camera: preact.FunctionalComponent<Props> = ({onSave}: Props) => {
+  const [preview, setPreview] = useState(false);
   const videoRef = useRef<HTMLVideoElement>();
   const canvasRef = useRef<HTMLCanvasElement>();
   const thumbRef = useRef<HTMLCanvasElement>();
@@ -26,45 +26,64 @@ const Camera: preact.FunctionalComponent<Props> = ({onCapture}: Props) => {
           videoRef.current.play();
       }
   }
+  const handleCancel = () => {
+    setPreview(false);
+  }
   const handleCapture = () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    const thumb = thumbRef.current;
-    if(!canvas || !video || !thumb) { return }
+    if(!canvas || !video ) { return }
 
     // downgrade the image for no particular reason -- just trying stuff here
     canvas.height=video.videoHeight;
     canvas.width=video.videoWidth;
-    thumb.height=video.videoHeight/16;
-    thumb.width=video.videoWidth/16;
     const context = canvas.getContext("2d");
-    const thumbCtx = thumb.getContext("2d");
+
+    if(!context) { return }  
+    context.drawImage(
+      video,0,0,video.videoWidth, video.videoHeight, 0,0,canvas.width,canvas.height
+    );
+    setPreview(true);
+
+  }
+  const handleSave = () => {
+    const canvas = canvasRef.current;
+    const thumb = thumbRef.current;
+    if(!canvas || !thumb) { return }
+
+    // downgrade the image for no particular reason -- just trying stuff here
+    thumb.height=canvas.height/16;
+    thumb.width=canvas.height/16;
+    const context = thumb.getContext("2d");
 
     if(context) {  
       context.drawImage(
-        video,0,0,video.videoWidth, video.videoHeight, 0,0,canvas.width,canvas.height
-      );
-    }
-    if(thumbCtx) {  
-      thumbCtx.drawImage(
-        video,0,0,video.videoWidth, video.videoHeight, 0,0,thumb.width,thumb.height
+        canvas,0,0,canvas.width, canvas.height, 0,0,thumb.width,thumb.height
       );
     }
 
-    const thumbUrl = thumb.toDataURL()
-    canvas.toBlob(blob => blob && onCapture(blob, thumbUrl), "image/jpeg", 1);
+    const thumbUrl = thumb.toDataURL("image/jpeg", .5)
+    canvas.toBlob(blob => blob && onSave(blob, thumbUrl), "image/jpeg", .5);
   }
   
     return (
       <div class={style.wrapper}>
       <div class={style.container} >
         <video ref={videoRef} onCanPlay={handleCanPlay} autoPlay={true} playsInline={true} muted={true} />
-        <canvas class={style.preview} ref={canvasRef} />
-        <canvas class={style.thumb} ref={thumbRef} />
+        <canvas class={preview ? style.preview : style.hide} ref={canvasRef} />
+        <canvas class={style.hide} ref={thumbRef} />
       </div>
-        <button class={style.snap} onClick={handleCapture}>
+      <div class={style.controls} >
+      {!preview && <button class={style.snap} onClick={handleCapture}>
         Take a picture
-      </button>
+      </button>}
+      {preview && <button class={style.snap} onClick={handleSave}>
+        save
+      </button>}
+      {preview && <button class={style.snap} onClick={handleCancel}>
+        cancel
+      </button>}
+      </div>
       </div>
   );
 }
