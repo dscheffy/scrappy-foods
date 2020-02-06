@@ -19,6 +19,9 @@
 	font-weight: 400;
 	color: #FFF;
 }
+@media (max-width: 500px) { 
+	.header h1 {display: none}
+}
 
 .header nav {
 	float: right;
