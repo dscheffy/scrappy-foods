@@ -1,4 +1,5 @@
 import { resolve } from "path";
+// import * as webpack from "webpack";
 
 export default function(config, env, helpers) {
     // Switch css-loader for typings-for-css-modules-loader, which is a wrapper
@@ -13,6 +14,11 @@ export default function(config, env, helpers) {
             silent: true
         });
     });
+
+    // Tell webpack to refer to files relative to current location rather
+    // than "/" base url -- combine this with HashRouter and no esm for
+    // supporting SPA from local file URLs (necessary for Cordova webviews)
+    config.output.publicPath = "";
 
     // Use any `index` file, not just index.js
     config.resolve.alias["preact-cli-entrypoint"] = resolve(

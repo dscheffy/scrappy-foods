@@ -1,3 +1,4 @@
+import { createHashHistory } from "history";
 import { h } from "preact";
 import { Route, Router, RouterOnChangeArgs } from "preact-router";
 
@@ -20,14 +21,14 @@ const App: preact.FunctionalComponent = () => {
 
     return (
         <ProvideAuth>
-        <div id="app">
-            <Header />
-            <Router onChange={handleRoute}>
-                <Route path="/camera/" component={CameraRoute} />
-                <Route path="/history/" component={History} />
-                <Route path="/" component={Profile} />
-            </Router>
-        </div>
+            <div id="app">
+                <Header />
+                <Router onChange={handleRoute} history={createHashHistory()}>
+                    <Route path="/camera/" component={CameraRoute} />
+                    <Route path="/history/" component={History} />
+                    <Route path="/" component={Profile} />
+                </Router>
+            </div>
         </ProvideAuth>
     );
 };

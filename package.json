@@ -8,6 +8,7 @@
     "start:production": "npm run -s serve",
     "start:development": "npm run -s dev",
     "build": "preact build --no-prerender",
+    "build:cordova": "preact build --no-prerender --dest=www --sw=false --template=src/cordova-template.html --esm=false",
     "serve": "preact build && preact serve",
     "dev": "preact watch",
     "lint": "tslint --project src",
@@ -31,11 +32,13 @@
     "build/*"
   ],
   "devDependencies": {
+    "@types/history": "^4.7.5",
     "@types/jest": "^23.3.10",
     "@types/react": "^16.9.19",
     "@types/webpack-env": "^1.13.9",
     "css-loader": "^1.0.1",
     "firebase-tools": "^7.12.1",
+    "history": "^4.10.1",
     "husky": "^1.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
