@@ -36,6 +36,8 @@
     "@types/jest": "^23.3.10",
     "@types/react": "^16.9.19",
     "@types/webpack-env": "^1.13.9",
+    "cordova": "^9.0.0",
+    "cordova-plugin-whitelist": "^1.3.4",
     "css-loader": "^1.0.1",
     "firebase-tools": "^7.12.1",
     "history": "^4.10.1",
@@ -58,6 +60,11 @@
     "typings-for-css-modules-loader": "^1.7.0"
   },
   "dependencies": {
+    "cordova-android": "^8.1.0",
+    "cordova-plugin-browsertab": "0.2.0",
+    "cordova-plugin-buildinfo": "4.0.0",
+    "cordova-plugin-compat": "1.2.0",
+    "cordova-universal-links-plugin-fix": "1.2.1",
     "firebase": "^7.8.0",
     "preact": "^10.0.0",
     "preact-jsx-chai": "^3.0.0",
@@ -101,5 +108,13 @@
       "^create-react-class$": "preact-compat/lib/create-react-class",
       "^react-addons-css-transition-group$": "preact-css-transition-group"
     }
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {}
+    },
+    "platforms": [
+      "android"
+    ]
   }
 }
