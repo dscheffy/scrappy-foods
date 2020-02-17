@@ -2,6 +2,7 @@ import { createHashHistory } from "history";
 import { h } from "preact";
 import { Route, Router, RouterOnChangeArgs } from "preact-router";
 
+import { CordovaProvider } from "../hooks/cordova";
 import { ProvideAuth } from "../hooks/useAuth"
 import CameraRoute from "../routes/camera";
 import History from "../routes/history";
@@ -20,16 +21,18 @@ const App: preact.FunctionalComponent = () => {
     };
 
     return (
-        <ProvideAuth>
-            <div id="app">
-                <Header />
-                <Router onChange={handleRoute} history={createHashHistory()}>
-                    <Route path="/camera/" component={CameraRoute} />
-                    <Route path="/history/" component={History} />
-                    <Route path="/" component={Profile} />
-                </Router>
-            </div>
-        </ProvideAuth>
+        <CordovaProvider>
+            <ProvideAuth>
+                <div id="app">
+                    <Header />
+                    <Router onChange={handleRoute} history={createHashHistory()}>
+                        <Route path="/camera/" component={CameraRoute} />
+                        <Route path="/history/" component={History} />
+                        <Route path="/" component={Profile} />
+                    </Router>
+                </div>
+            </ProvideAuth>
+        </CordovaProvider>
     );
 };
 
