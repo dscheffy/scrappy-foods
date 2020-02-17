@@ -3,3 +3,6 @@ node_modules
 /build
 /*.log
 .firebase
+platforms/
+plugins/
+ul_web_hooks/

@@ -19,4 +19,7 @@
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleTask" />
+    <platform name="android">
+        <hook src="scripts/fixBrowserTabMinVersion.js" type="before_prepare" />
+    </platform>
 </widget>
