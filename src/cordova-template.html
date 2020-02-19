@@ -14,7 +14,7 @@
 				* Enable inline JS: add 'unsafe-inline' to default-src
 		-->
 	<meta http-equiv="Content-Security-Policy"
-		content="default-src 'self' data: gap: https://www.googleapis.com https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+		content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; connect-src https://*.googleapis.com; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: blob: content: https://lh3.googleusercontent.com android-webview-video-poster: ;">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
