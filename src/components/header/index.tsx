@@ -5,22 +5,22 @@ import { SignIn, SignOut, useAuth } from "../../hooks/useAuth";
 import * as style from "./style.css";
 
 const Header: preact.FunctionalComponent = () => {
-    const {auth} = useAuth();
+    const { auth } = useAuth();
     const anon = auth === ANONYMOUS;
     return (
         <header class={style.header}>
             <h1>Scrappy Foods!</h1>
             <nav>
-                { !anon && <Link activeClassName={style.active} href="/camera">
+                {!anon && <Link activeClassName={style.active} href="/camera">
                     Camera
-                </Link> }
-                { !anon && <Link activeClassName={style.active} href="/history">
+                </Link>}
+                {!anon && <Link activeClassName={style.active} href="/history">
                     History
-                </Link> }
+                </Link>}
                 <Link activeClassName={style.active} href="/">
                     Profile
                 </Link>
-                { anon ? <SignIn/> : <SignOut/> }
+                {anon ? <SignIn /> : <SignOut />}
             </nav>
         </header>
     );

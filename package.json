@@ -11,7 +11,7 @@
     "serve": "preact build && preact serve",
     "dev": "preact watch",
     "lint": "tslint --project src",
-    "test": "jest ./tests",
+    "test": "jest",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -31,10 +31,13 @@
     "build/*"
   ],
   "devDependencies": {
+    "@types/enzyme": "^3.10.5",
     "@types/jest": "^23.3.10",
     "@types/react": "^16.9.19",
     "@types/webpack-env": "^1.13.9",
     "css-loader": "^1.0.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-preact-pure": "^2.2.0",
     "firebase-tools": "^7.12.1",
     "husky": "^1.2.0",
     "identity-obj-proxy": "^3.0.0",
@@ -65,38 +68,5 @@
   "peerDependencies": {
     "prettier": ">1.0.0",
     "tslint": ">5.0.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "verbose": true,
-    "setupFiles": [
-      "<rootDir>/src/tests/__mocks__/browserMocks.js"
-    ],
-    "testURL": "http://localhost:8080",
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "ts",
-      "tsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "testMatch": [
-      "**/__tests__/**/*.[jt]s?(x)",
-      "**/?(*.)(spec|test).[jt]s?(x)"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/tests/__mocks__/fileMock.js",
-      "\\.(css|less|scss)$": "identity-obj-proxy",
-      "^./style$": "identity-obj-proxy",
-      "^preact$": "<rootDir>/node_modules/preact/dist/preact.min.js",
-      "^react$": "preact-compat",
-      "^react-dom$": "preact-compat",
-      "^create-react-class$": "preact-compat/lib/create-react-class",
-      "^react-addons-css-transition-group$": "preact-css-transition-group"
-    }
   }
 }
