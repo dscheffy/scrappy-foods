@@ -6,6 +6,7 @@ import CameraRoute from "../routes/camera";
 import History from "../routes/history";
 import Profile from "../routes/profile";
 import Header from "./header";
+import TemplateRoute from "../routes/template";
 
 if ((module as any).hot) {
     // tslint:disable-next-line:no-var-requires
@@ -20,14 +21,17 @@ const App: preact.FunctionalComponent = () => {
 
     return (
         <ProvideAuth>
-        <div id="app">
-            <Header />
-            <Router onChange={handleRoute}>
-                <Route path="/camera/" component={CameraRoute} />
-                <Route path="/history/" component={History} />
-                <Route path="/" component={Profile} />
-            </Router>
-        </div>
+            <div id="app">
+                <Header />
+                <main>
+                    <Router onChange={handleRoute}>
+                        <Route path="/camera/" component={CameraRoute} />
+                        <Route path="/history/" component={History} />
+                        <Route path="/template/:id?" component={TemplateRoute} />
+                        <Route path="/" component={Profile} />
+                    </Router>
+                </main>
+            </div>
         </ProvideAuth>
     );
 };

@@ -14,9 +14,12 @@ const Header: preact.FunctionalComponent = () => {
                 {!anon && <Link activeClassName={style.active} href="/camera">
                     Camera
                 </Link>}
-                {!anon && <Link activeClassName={style.active} href="/history">
-                    History
+                {!anon && <Link activeClassName={style.active} href="/template">
+                    Templates
                 </Link>}
+                {/*!anon && <Link activeClassName={style.active} href="/history">
+                    History
+                </Link>*/}
                 <Link activeClassName={style.active} href="/">
                     Profile
                 </Link>

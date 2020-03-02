@@ -7,10 +7,10 @@ interface Props {
 }
 
 const Profile: FunctionalComponent<Props> = props => {
-    const {auth} = useAuth()
+    const { auth } = useAuth()
     return (
         <div class={style.profile}>
-        {auth &&  <User {...auth}/>}
+            {auth && <User {...auth} />}
         </div>
     );
 }

@@ -9,10 +9,21 @@ export interface AuthInfo {
 }
 export interface UserDetail {
   history: Activity[];
+  templates: { [key: string]: Template }
 }
 export interface Activity {
   type: string;
   notes: string;
   timestamp: number;
   image?: Upload;
+}
+export interface FormInput {
+  type: string;
+}
+export interface Template {
+  id: string;
+  description?: string;
+  previous?: string;
+  title: string;
+  inputs: FormInput[];
 }
